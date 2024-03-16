@@ -35,7 +35,7 @@ pipeline{
         stage("Docker push"){
             steps{
                 script{
-                    withAWS(region:$region,credentials:'aws_creds'){
+                    withAWS(region:"$region",credentials:'aws_creds'){
                         sh "docker push ${registry}/${ms}:${tag}"
                     }
                 }
