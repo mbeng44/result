@@ -21,6 +21,7 @@ def getMsName(){
 }
 
 def getTag(){
+ sh "ls -l"
  version = readJSON file: 'package.json'
  version = version["version"]
  print "version: ${version}"
