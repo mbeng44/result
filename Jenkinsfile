@@ -22,7 +22,7 @@ def getMsName(){
 
 def getTag(){
  version = readJSON file: 'package.json'
- version = assert version["version"]
+ version = version["version"]
  print "version: ${version}"
 
  def tag = ""
