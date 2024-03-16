@@ -3,7 +3,7 @@ def tag = ""
 def ms = ""
 
 pipeline{
-    agent none
+    agent any
     stages{
         stage("init"){
             steps{
