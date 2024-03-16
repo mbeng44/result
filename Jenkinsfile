@@ -1,6 +1,7 @@
 def registry= "940090592876.dkr.ecr.us-east-1.amazonaws.com"
 def tag = ""
 def ms = ""
+def region = "us-east-1"
 
 pipeline{
     agent any
@@ -20,12 +21,33 @@ pipeline{
                 }
             }
         }
+
+        stage("Login to Ecr"){
+            steps{
+                script{
+                    withAWS(region:$region,credentials:'aws_creds'){
+                        sh "aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${registry}"
+                    }
+                }
+            }
+        }
+
+        stage("Docker push"){
+            steps{
+                script{
+                    withAWS(region:$region,credentials:'aws_creds'){
+                        sh "docker push ${registry}/${ms}:${tag}"
+                    }
+                }
+            }
+        }
+
     }
 }
 
 def getMsName(){
     print env.JOB_NAME
-    return env.JOB_NAME
+    return env.JOB_NAME.split("/")[0]
 }
 
 def getTag(){
