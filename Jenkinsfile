@@ -1,10 +1,18 @@
 def registry= "940090592876.dkr.ecr.us-east-1.amazonaws.com"
-def tag = getTag()
-def ms = getMsName()
+def tag = ""
+def ms = ""
 
 pipeline{
     agent none
     stages{
+        stage("init"){
+            steps{
+                script{
+                    tag = getTag()
+                    ms = getMsName()
+                }
+            }
+        }
         stage("Build Docker image"){
             steps{
                 script{
