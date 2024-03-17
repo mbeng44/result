@@ -42,6 +42,18 @@ pipeline{
             }
         }
 
+        stage("Deploy to Dev"){
+            when{branch 'develop'}
+            steps{
+                script{
+                    withAWS(region:"$region",credentials:'aws_creds'){
+                        sh "aws eks update-kubeconfig --name vote-dev"
+                        sh "kubectl set image deploy/result result=${tag} -n vote "
+                        sh "kubectl rollout restart deploy/result -n vote"
+                    }
+                }
+            }
+        }
     }
 }
 
