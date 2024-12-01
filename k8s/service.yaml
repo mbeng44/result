@@ -2,14 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: result
+    app: mbeng44/result
   name: result
 spec:
   type: NodePort
   ports:
-  - name: "result-service"
-    port: 5001
+  - name: "result"
+    port: 5000
     targetPort: 80
     nodePort: 31001
   selector:
-    app: result
+    app: mbeng44/result

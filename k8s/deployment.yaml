@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: result
+    app:mbeng44/result
   name: result
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: result
+      app: mbeng44/result
   template:
     metadata:
       labels:
-        app: result
+        app: mbeng44/result
     spec:
       containers:
       - image: dockersamples/examplevotingapp_result
