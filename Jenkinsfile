@@ -3,16 +3,15 @@ pipeline {
 
     environment {
         DOCKER_HUB_REPO = 'mbeng44'
-        IMAGE_NAME = 'mbeng44/result'
+        IMAGE_NAME = 'result'
         IMAGE_TAG = 'latest'
         DOCKER_CREDENTIALS = '8461b105-3d7c-4d95-b34d-da4af62b3a16'
-        KUBERNETES_NAMESPACE = 'mbeng'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/mbeng44/result.git'
+                git branch: 'main', url: 'https://github.com/mbeng44/load-generator-vote.git'
             }
         }
 
@@ -33,17 +32,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    sh """
-                    kubectl apply -f kubernetes/deployment.yaml --namespace=${mbeng}
-                    kubectl apply -f kubernetes/service.yaml --namespace=${mbeng}
-                    """
-                }
-            }
-        }
     }
 
     post {
@@ -53,3 +41,5 @@ pipeline {
     }
 }
 
+    }
+}
