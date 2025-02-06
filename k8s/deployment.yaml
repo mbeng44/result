@@ -1,11 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: result
-  name: result
+  name: result-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: result
@@ -15,8 +13,20 @@ spec:
         app: result
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_result
-        name: result
+      - name: result
+        image: mbeng44/result-app:latest
         ports:
         - containerPort: 80
-          name: result
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-service
+spec:
+  selector:
+    app: result
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
