@@ -1,21 +1,26 @@
-# Use an official Node.js runtime as the base image
-FROM node:16-slim
+FROM node:18-slim
 
-# Set the working directory in the container
-WORKDIR /app
+# add curl for healthcheck
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl tini && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy package.json and package-lock.json
+WORKDIR /usr/local/app
+
+# have nodemon available for local dev use (file watching)
+RUN npm install -g nodemon
+
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm ci && \
+ npm cache clean --force && \
+ mv /usr/local/app/node_modules /node_modules
 
-# Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
+ENV PORT 80
 EXPOSE 80
 
-# Command to run the application
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server.js"]
 
