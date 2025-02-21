@@ -13,8 +13,8 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', 
-                    credentialsId: 'github-credentials', 
-                    url: 'https://github.com/mbeng44/results.git'
+                    credentialsId: 'mbeng44', 
+                    url: 'https://github.com/mbeng44/result.git'
             }
         }
 
