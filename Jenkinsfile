@@ -3,22 +3,22 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID = '205930645143'
         AWS_REGION = 'us-east-1'
-        IMAGE_NAME = "voting-app/result"
+        IMAGE_NAME = "voting-app1/result"
     }
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/mbeng44/result.git'
+                git 'https://github.com/Primus-Learning/result.git'
             }
         }
         stage('Build') {
             steps {
-                sh 'dotnet build'
+                sh 'npm install'
             }
         }
         stage('Test') {
             steps {
-                sh 'dotnet test'
+                sh 'npm test'
             }
         }
         stage('Docker Build & Push') {
