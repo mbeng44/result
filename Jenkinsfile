@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', 
-                    credentialsId: 'aws', 
+                    credentialsId: 'aws-credentials', 
                     url: 'https://github.com/mbeng44/result.git'
             }
         }
